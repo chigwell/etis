@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+  <title class="title-class"></title>
+  <link rel="stylesheet" href="dist/css/framework7.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <style id="customCssId">
+  </style>
+</head>
+<body>
+  <div id="app" class="with-modal-preloader">
+    <div class="statusbar"></div>
+    <div class="panel panel-left panel-cover" id="left-menu-id">
+      <div class="page">
+        <div class="page-content">
+          <div class="block-title">Меню</div>
+          <div class="list links-list">
+            <ul>
+            </ul>
+          </div>
+          <div class="block">
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view view-main view-init ios-edges" data-url="/">
+      <div class="page">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="left">
+              <a href="#" class="link icon-only panel-open" data-panel="left">
+                <i class="icon f7-icons ios-only">menu</i>
+                <i class="icon material-icons md-only">menu</i>
+              </a>
+            </div>
+            <div class="title sliding title-class"></div>
+            <div class="right">
+              <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
+                <i class="icon f7-icons ios-only">search_strong</i>
+                <i class="icon material-icons md-only">search</i>
+              </a>
+            </div>
+            <form data-search-container=".components-list" data-search-in="a" class="searchbar searchbar-expandable searchbar-components searchbar-init">
+              <div class="searchbar-inner">
+                <div class="searchbar-input-wrap">
+                  <input type="search" placeholder="Поиск"/>
+                  <i class="searchbar-icon"></i>
+                  <span class="input-clear-button"></span>
+                </div>
+                <span class="searchbar-disable-button">Отмена</span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="page-content">
+        <span class="progressbar-infinite color-multi inf2" style="display:none;"></span>   
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Sheet Modal Container -->
+  <div class="sheet-modal" style="height: 100%;top:0px;">
+    <!-- Sheet Modal Toolbar, optional -->
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="left">
+          <a href="#" class="link">Вход</a></div>
+        <div class="right">
+          <a href="#" class="link" id="submitAuthId">Ок</a>
+        </div>
+      </div>
+    </div>
+    <!-- Sheet Modal Inner -->
+    <div class="sheet-modal-inner">
+    <span class="progressbar-infinite color-multi inf1"></span>      
+      <!-- Sheet Modal content -->
+      <div class="block">
+        <form class="list form-store-data" id="my-form">
+          <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Фамилия</div>
+                  <div class="item-input-wrap">
+                    <input type="text" name="f1" id="f1" placeholder="Фамилия">
+                  </div>
+                </div>
+              </div>
+            </li>   
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Пароль</div>
+                  <div class="item-input-wrap">
+                    <input type="password" name="f2" id="f2" placeholder="Пароль">
+                  </div>
+                </div>
+              </div>
+            </li>   
+          </ul>       
+        </form>
+        <p id="disckaimerAuthId">
+          
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="dist/js/framework7.min.js"></script>
+  <script src="dist/js/g.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
