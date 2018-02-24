@@ -1,6 +1,7 @@
   function ex() {
   // Dom7
   var $$ = Dom7;
+  var servfile = '/index_alb.php';
 
   // Theme
   var theme = 'auto';
@@ -35,7 +36,7 @@
 
 
 
-
+  // Стартовая страница
   //init
   $$('.title-class').each(function() {
   	$$(this).html('ЕТИС ПГНИУ')
@@ -46,43 +47,55 @@
   var func ="store.set('user_bros',LZString.compress(''));window.location.reload(true)"
   $$('#left-menu-id').find('ul').html(''+
               '<li>'+
-              '  <a href="#" class="panel-close exitClass" onclick="'+func+'">Выход</a>'+
+              '  <a href="#" class="panel-close exitClass" id="logoutId">Выход</a>'+
               '</li>'
   	);
-
+  $$('#logoutId').click(function() {
+  	var user_bros = LZString.decompress(store.get('user_bros'))
+  	app.request.post(domen+servfile, { r:'logout',bros:user_bros},function(){},function(){})
+  	store.set('user_bros',LZString.compress(''))
+  	window.location.reload(true)
+  })
 
   function exitClass() {
         	
   }
   function loadPages() {
   	$$('.progressbar-infinite.inf2').css('display','')
-  	var user_bros = LZString.decompress(store.get('user_bros')) 
-  	app.request.post(domen+'/index.php', { r:'getPages',bros:user_bros}, function (data1) {
+  	var user_bros = LZString.decompress(store.get('user_bros'))
+  	app.request.post(domen+servfile, { r:'getPages',bros:user_bros}, function (data1) {
 		//try
-		var res1 = JSON.parse(data1)
-		console.log(res1)
-		if((res1.error == 0)) {
-			var res = res1.res
-			for (var i = 0; i < res.length; i++) {
+		console.log(data1)
+		//var res1 = JSON.parse(data1)
+		//console.log(res1)
+		/*if((res1.error == 0)) {
+			var res = res1.res*/
+			/*$$('#left-menu-id').find('ul').html(''+
+              '<li>'+
+              '  <a>'+res[0].page_id+'</a>'+
+              '</li>'
+  			);*/
+			/*for (var i = 0; i < res.length; i++) {
 				var curr = res[i]
 				var page_id = curr.page_id
 				var dt = curr.dt
-				app.request.post(domen+'/index.php', { r:'getPage',bros:user_bros,id:page_id}, function (data2) {
-					console.log(data2)
+				app.request.post(domen+'/index_alb.php', { r:'getPage',bros:user_bros,id:page_id}, function (data2) {
+					//console.log(data2)
 
 				})
 			}//for (var i = 0; i < res.length; i++) 
 			$$('.progressbar-infinite.inf2').css('display','none')
 		}//if(parseInt(res1.error == 0)) 
 		else {
-console.log('else')
+			console.log('else')
 		}//else if(parseInt(res1.error == 0)) 
-console.log('end')
+			console.log('end')*/
+			$$('.progressbar-infinite.inf2').css('display','none')
 	})
 
   }//function loadPages() 
   function auth() {
-        var e = LZString.decompress(store.get('user_bros')) 
+        var e = LZString.decompress(store.get('user_bros'))
         if(e == "") {
             store.set('user_bros',LZString.compress(''))
             app.sheet.open('.sheet-modal', true)
@@ -95,14 +108,17 @@ console.log('end')
 
 
   }//  function auth()
+
+		  
+
   		$$('.progressbar-infinite.inf1').css('display','none')
             $$('#submitAuthId').click(function() {
             	
 				var e = LZString.decompress(store.get('act')) 
 				if(e == "") {
 					store.set('act',LZString.compress('1'))
-	            	var f1 = $$('#f1').val()
-	            	var f2 = $$('#f2').val()
+	            	var f1 = $$('#field_name').val()
+	            	var f2 = $$('#field_fam').val()
 	            	if(f1.length < 1 || f2.length < 1) {
 	            		app.dialog.alert('Неверные фамилия или пароль! Поля не могут быть пустыми!','Ошибка',function() {
 	            			store.set('act',LZString.compress(''))
@@ -110,20 +126,20 @@ console.log('end')
 	            	}//if(f1.length < 1 || f2.length < 1) 
 	            	else {
 	            		$$('.progressbar-infinite.inf1').css('display','')
-						app.request.post(domen+'/index.php', { r:'getNewBros',bros: ''}, function (data) {
+						app.request.post(domen+servfile, { r:'getNewBros',bros: ''}, function (data) {
 						  	//success
 						  	try {
 						  	var data = JSON.parse(data)
 						  	data.error = parseInt(data.error)
 						  	if(data.error==0) {
 						  		var new_bros = data.new_bros
+						  		console.log(new_bros)
 						  		store.set('user_bros',LZString.compress(new_bros))
 
-						  		app.request.post(domen+'/index.php', { r:'auth',bros:new_bros,user_log:f1,user_pass:f2}, function (data1) {
+						  		app.request.post(domen+servfile, { r:'auth',bros:new_bros,user_log:f1,user_pass:f2}, function (data1) {
 						  			var res1 = JSON.parse(data1)
 						  			res1.error = parseInt(res1.error)
 						  			if(res1.error == 1) {
-						  				console.log(res1.sys_mess)
 										var notification = app.notification.create({
 										  title: 'Ошибка',
 										  text: res1.mess,
@@ -137,10 +153,11 @@ console.log('end')
 									  	setTimeout(function () {
 									  		$$('.progressbar-infinite.inf1').css('display','none')
 									  	},1000)		
-										notification.open()							  				
+										notification.open()			
+										store.set('user_bros',LZString.compress(''))           // добавил				  				
 						  			}
 						  			else {
-
+						  				// success
 							  			setTimeout(function () {
 								  			$$('.progressbar-infinite').css('display','none')
 							  				app.sheet.close('.sheet-modal', true)
@@ -152,7 +169,7 @@ console.log('end')
 						  			setTimeout(function () {
 							  			$$('.progressbar-infinite.inf1').css('display','none')
 							  		},1000)		
-						  		})//app.request.post(domen+'/index.php', { r:'auth'
+						  		})//app.request.post(domen+'/index_alb.php', { r:'auth'
 
 							  								
 						  	}//if(data.error==1) 
@@ -208,6 +225,10 @@ console.log('end')
             }) //$$('#submitAuthId').click(function()
   
   auth()
+
+  $$('#btnRefresh').click(function() {
+		  	loadPages()			
+		  })
 
 
   //end init

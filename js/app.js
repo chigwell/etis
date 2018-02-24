@@ -1,5 +1,5 @@
 
-var domen = 'http://ufm.me/etispgniu'
+var domen = 'http://b7n.ru/etis'//'http://ufm.me/etispgniu'
 try {
   console.log('sys: try to load updated from server');
   var xhttp = new XMLHttpRequest();

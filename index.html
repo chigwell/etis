@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -30,6 +30,7 @@
         </div>
       </div>
     </div>
+    
     <div class="view view-main view-init ios-edges" data-url="/">
       <div class="page">
         <div class="navbar">
@@ -57,11 +58,16 @@
                 <span class="searchbar-disable-button">Отмена</span>
               </div>
             </form>
+            
           </div>
         </div>
         <div class="page-content">
-        <span class="progressbar-infinite color-multi inf2" style="display:none;"></span>   
-
+        <span class="progressbar-infinite color-multi inf2" style="display:none"></span>   
+            <div class="block">
+              <div class="row">
+                <button class="button col" id="btnRefresh">Запустить тест</button>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -90,7 +96,7 @@
                 <div class="item-inner">
                   <div class="item-title item-label">Фамилия</div>
                   <div class="item-input-wrap">
-                    <input type="text" name="f1" id="f1" placeholder="Фамилия">
+                    <input type="text" name="field_name" id="field_name" placeholder="Фамилия">
                   </div>
                 </div>
               </div>
@@ -100,7 +106,7 @@
                 <div class="item-inner">
                   <div class="item-title item-label">Пароль</div>
                   <div class="item-input-wrap">
-                    <input type="password" name="f2" id="f2" placeholder="Пароль">
+                    <input type="password" name="field_fam" id="field_fam" placeholder="Пароль">
                   </div>
                 </div>
               </div>
